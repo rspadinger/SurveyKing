@@ -23,6 +23,10 @@ module.exports = app => {
   });
 
   app.post('/api/surveys/webhooks', (req, res) => {
+    // console.log('************** DATA ****************');
+    // console.log(req.body);
+    // return res.send({});
+
     const p = new Path('/api/surveys/:surveyId/:choice');
 
     _.chain(req.body)
@@ -32,7 +36,7 @@ module.exports = app => {
           return { email, surveyId: match.surveyId, choice: match.choice };
         }
       })
-      .compact()  //compact removes any array elements that are undefined
+      .compact() //compact removes any array elements that are undefined
       .uniqBy('email', 'surveyId')
       .each(({ surveyId, email, choice }) => {
         //normally, the following would be an async operation, but there is no need to define
@@ -41,7 +45,7 @@ module.exports = app => {
         Survey.updateOne(
           //first, we find certain elements - where responded == false...
           {
-            _id: surveyId,  //in Mongo, ids need to be prefixed with underscore
+            _id: surveyId, //in Mongo, ids need to be prefixed with underscore
             recipients: {
               $elemMatch: { email: email, responded: false }
             }
@@ -52,7 +56,7 @@ module.exports = app => {
             $set: { 'recipients.$.responded': true },
             lastResponded: new Date()
           }
-        ).exec();  //we execute the query
+        ).exec(); //we execute the query
       })
       .value();
 

@@ -2,11 +2,11 @@ import React from 'react';
 
 const Landing = () => {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1>
-        Emaily!
-      </h1>
-      Collect feedback form your users
+    <div style={{ textAlign: 'center', marginTop: '40px' }}>
+      <h5>
+        Login with your Google account and start collecting feedback form your
+        users!
+      </h5>
     </div>
   );
 };
