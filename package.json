@@ -1,10 +1,10 @@
 {
-  "name": "SurveyKing server",
+  "name": "surveykingserver",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "9.5.0"    
+    "node": "9.5.0"
   },
   "scripts": {
     "start": "node index.js",
